@@ -7,6 +7,7 @@
 
 ## Fork Changes
 -Asset tags are now read from the Dell BIOS asset tag. 
+
 -Asset tag prefixes and the - character are removed. 
 
 ## Features
