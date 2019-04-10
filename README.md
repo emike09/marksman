@@ -5,10 +5,14 @@
 2. By default, the program will be installed in Program Files (x86)/Scope-IT/Marksman. Edit the Marksman.exe.config file to include your API key and BaseURI from the default values to the ones given by your Snipe-IT instance.
 3. Set the Company and Location parameters in Marksman.exe.config, then run the .exe.
 
+## Fork Changes
+-Asset tags are now read from the Dell BIOS asset tag. 
+-Asset tag prefixes and the - character are removed. 
+
 ## Features
 * The agent creates an asset and fills out the fields:
   - Asset name (currently machine hostname, unless agent is run in interactive mode)
-  - Asset id (Asset tag prefix + serial number)
+  - Asset id (Based on the Dell BIOS asset tag)
   - Location (from a config file or the Organizational Unit)
   - Warranty (from config file)
   - Status label (from config file)
