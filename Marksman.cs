@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -124,6 +124,7 @@ namespace Marksman
             string systemName = GetOutputVariable("Win32_ComputerSystem.Name");
             string serialNumber = GetOutputVariable("Win32_ComputerSystemProduct.IdentifyingNumber");
             string macAddress = GetOutputVariable("Win32_NetworkAdapter.MACAddress");
+            string assettag = GetOutputVariable("Win32_SystemEnclosure.SMBIOSAssetTag");
             Dictionary<string, string> customFields = new Dictionary<string, string>();
             customFields.Add("_snipeit_macaddress_1", macAddress);
             string warrantyMonths = appSettings["WarrantyMonths"];
@@ -139,7 +140,7 @@ namespace Marksman
             Asset currentComputer = new SnipeSharp.Endpoints.Models.Asset
             {
                 Company = null,
-                AssetTag = appSettings["AssetTagPrefix"] + "-" + serialNumber, // <-- to be implemented.. somehow, somewhere
+                AssetTag = appSettings["AssetTagPrefix"] + assettag, // <-- to be implemented.. somehow, somewhere. Mike has modified this line. 
                 Model = null,
                 StatusLabel = null,
                 RtdLocation = null,
@@ -324,6 +325,7 @@ namespace Marksman
             mySentry.AddQuery("WMI", "SELECT Name FROM Win32_DesktopMonitor");
             mySentry.AddQuery("WMI", "SELECT Manufacturer,Product,SerialNumber FROM Win32_BaseBoard");
             mySentry.AddQuery("WMI", "SELECT Name,NumberOfCores,NumberOfLogicalProcessors FROM Win32_Processor");
+            mySentry.AddQuery("WMI", "SELECT SMBIOSAssetTag FROM Win32_SystemEnclosure");
 
             bool getOU = false;
             bool getOUSuccess = Boolean.TryParse(appSettings["OUEnabled"], out getOU);
